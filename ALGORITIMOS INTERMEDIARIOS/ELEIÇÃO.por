@@ -14,7 +14,7 @@ programa
 			
 			se(votos=="13")
 			{
-				coringa=coringa+1
+				coringa++
 				se(coringa>maior)
 				{
 					coringa=maior
@@ -23,7 +23,7 @@ programa
 			}
 			senao se(votos=="22")
 			{
-				batman=batman+1
+				batman++
 				se(batman>maior)
 				{
 					batman=maior
@@ -32,7 +32,7 @@ programa
 			}
 			senao se (votos=="55")
 			{
-				labareda=labareda+1
+				labareda++
 				se(labareda>maior)
 				{
 					labareda=maior
@@ -41,7 +41,7 @@ programa
 			}
 			senao se (votos=="12")
 			{
-				robim=robim+1
+				robim++
 				se(robim>maior)
 				{
 					robim=maior
@@ -50,7 +50,7 @@ programa
 			}
 			senao se (votos=="69")
 			{
-				batGirl=batGirl+1
+				batGirl++
 				se(batGirl>maior)
 				{
 					batGirl=maior
@@ -59,7 +59,7 @@ programa
 			}
 			senao
 			{
-				nulo=nulo+1
+				nulo++
 				canditado_eleito="nulo"
 			}
 			
