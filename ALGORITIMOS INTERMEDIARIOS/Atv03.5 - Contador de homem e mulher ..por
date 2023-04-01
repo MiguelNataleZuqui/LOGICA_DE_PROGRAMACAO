@@ -1,35 +1,39 @@
 programa
 {
-
 	
 	funcao inicio()
 	{
-		inteiro pessoas,m=0,h=0
+		inteiro numero_pessoas, 
+		homens_cumprimentados=0, mulheres_cumprimentadas=0
 		caracter sexo
 		cadeia nome
-		escreva("Quantas pessoas? ")
-		leia(pessoas)
-		para(inteiro i=1; i<=pessoas; i++)
+		
+		escreva("Quantas pessoas: ")
+		leia(numero_pessoas)
+		
+		para(inteiro contador=0;contador <numero_pessoas;contador++)
 		{
 			escreva("Informe seu sexo (f/m): ")
 			leia(sexo)
 			escreva("Informe seu nome: ")
 			leia(nome)
+
 			se(sexo == 'f')
 			{
-				escreva("Bem vinda sra. ",nome,"\n")
-				m=m+1
-				
-			}
-			se(sexo == 'm')
+				escreva("Bem vinda sra. ", nome, "\n")
+				mulheres_cumprimentadas++
+			}senao se (sexo == 'm')
 			{
-				escreva("Bem vinda sr. ",nome,"\n")
-				h=h+1
+				escreva("Bem vindo sr. ", nome, "\n")
+				homens_cumprimentados++
+			}senao
+			{
+				escreva("Escolha uma opção válida")
 			}
 		}
-		escreva("Homens cumprimentados: ",h)
-		escreva("Mulheres cumprimentadas: \n",m)
-		
+
+		escreva("Homens cumprimentados: ", homens_cumprimentados, "\n")
+		escreva("Mulheres cumprimentadas: ", mulheres_cumprimentadas)
 	}
 }
 /* $$$ Portugol Studio $$$ 
