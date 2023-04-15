@@ -1,4 +1,3 @@
-	
 programa
 {
 	inclua biblioteca Texto --> t
@@ -7,16 +6,19 @@ programa
 	cadeia endereco
 	cadeia extracao
 	inteiro contador_de_carracter
+	cadeia colocar
 	funcao inicio()
 	{
 		escreva("Digite seu cep: \n")
 		leia(cep)
 		escreva("\n----------------------------------\n")
 		endereco= SW.obter_dados("https://viacep.com.br/ws/"+cep+"/json/")
-		escreva(endereco,"\n")
 		contador_de_carracter= t.numero_caracteres(endereco)
-		extracao= t.extrair_subtexto(endereco, 22, contador_de_carracter)
-		escreva(extracao)
+		
+		extracao = t.extrair_subtexto(endereco, 24, contador_de_carracter)
+		colocar= t.substituir(extracao, ", ", "\n\n")
+		
+		escreva(colocar)
 	}
 }
 /* $$$ Portugol Studio $$$ 
