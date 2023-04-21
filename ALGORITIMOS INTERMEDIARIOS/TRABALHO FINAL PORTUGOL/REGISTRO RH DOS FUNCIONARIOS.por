@@ -1,6 +1,6 @@
 programa
 {
-	inclua biblioteca Matematica --> m
+	inclua biblioteca Matematica --> m
 	real salario_oficial=salario_do_funcionario()
 	funcao inicio()
 	{
@@ -10,56 +10,75 @@ programa
 		leia(opcao_escolhida)
 		
 		seletor_programa(opcao_escolhida)
+		se(opcao_escolhida != 0)
+		{
+				mostra_o_detalhamento()
+		}
 		
+	}
+	funcao final()
+	{
+		escreva("╔══════════════════════════════╗\n")
+		escreva("║ OBRIGADO POR  USAR   NOSSO   ║\n")
+		escreva("║ PROGRAMA DE RECURSOS HUMANOS ║\n")
+		escreva("╚══════════════════════════════╝\n")
 	}
 	funcao menu()
 	
 	{
 		escreva("╔══════════════════════════════╗\n")
 		escreva("║ REGISTRO RH DOS FUNCIONARIOS ║\n")
+		escreva("║ O PROGRAMA  REALIZARÁ  AS    ║\n")
+		escreva("║ SEGUINTES FUNÇÕES            ║\n")
 		escreva("╠══════════════════════════════╣\n")
-		escreva("║ 1 - INSS                     ║\n")
-		escreva("║ 2 - IRPF                     ║\n")
-		escreva("║ 3 - Periculosidade           ║\n")
-		escreva("║ 0 - Sair                     ║\n")
+		escreva("║  INSS                        ║\n")
+		escreva("║  IRPF                        ║\n")
+		escreva("║  Periculosidade              ║\n")
+		escreva("║  Horas Extras                ║\n")
+		escreva("╠══════════════════════════════╣\n")
+		escreva("║ PARA CONTINUAR NO PROGRAMA   ║\n")
+		escreva("║ DIGITE 1                     ║\n")
+		escreva("║ PARA FINALIZAR O PROGRAMA    ║\n")
+		escreva("║ DIGITE 0                     ║\n")
 		escreva("╚══════════════════════════════╝\n")
-		escreva("Escolha uma opção: ")
+
 	}
 	funcao mostra_o_detalhamento()
 	{
 		real inss=simulador_de_inss()
 		real irpf=simulador_de_irpf()
+		real salario_das_ferias=calculador_de_ferias()
 		real add_de_periculosidade=simulador_de_periculosidade()
+		real piss=calculo_do_piss()
 		irpf=m.arredondar(irpf, 2)
 		inss=m.arredondar(inss, 2)
 		add_de_periculosidade=m.arredondar(add_de_periculosidade, 2)
-		
-		escreva("╔════════════════════════════════╗\n")
-		escreva("║         DETALHAMENTO           ║\n")
-		escreva("╠════════════════════════════════╣\n")
-		escreva("║  INSS:",inss,"                 ║\n")
-		escreva("║  IRPF:",irpf,"                 ║\n")
-		escreva("║  IRPF:",add_de_periculosidade,"                 ║\n")
-		escreva("╚════════════════════════════════╝\n")
+		salario_das_ferias=m.arredondar(salario_das_ferias, 2)
+		piss= m.arredondar(piss, 2)
+		escreva("\n╔═════════════════════════════════════╗\n")
+		escreva("║         DETALHAMENTO                ║\n")
+		escreva("╠═════════════════════════════════════╣\n")
+		escreva("║  INSS:",inss,"                        ║\n")
+		escreva("║  IRPF:",irpf,"                         ║\n")
+		escreva("║  PERICULOSIDADE:",add_de_periculosidade,"              ║\n")
+		escreva("║  FERIAS:",salario_das_ferias,"                      ║\n")
+		escreva("║  PISS:",piss,"                       ║\n")
+		escreva("╚═════════════════════════════════════╝\n")
 	}
 	funcao seletor_programa(inteiro opcao)
 	{
 		escolha(opcao)
 		{
 			caso 1:
-				simulador_de_inss()
-			pare
-			caso 2:
-				simulador_de_irpf()
-			pare
-			caso 3:
-				simulador_de_periculosidade()
+			
+				
+								
 			pare
 			caso 0:
-				escreva("\nMUITO OBRIGADO VOLTE SEMPRE")
+				final()
 			pare
 			caso contrario:
-				escreva("Digite uma opção valida")
+				escreva("Digite uma opção valida\n")
 				inicio()
 		}
 			
@@ -160,16 +179,58 @@ programa
 				add_de_periculosidade=0.3*salario_oficial
 				retorne add_de_periculosidade
 	}
+	funcao real calculador_de_ferias()
+	{
+		//calculo de férias
+		inteiro dias_ferias = 30
+		real salario_bruto = salario_oficial
+		real valor_ferias, terco_ferias, total_bruto
+		
+		//constante provisoria
+		 real inss = simulador_de_inss() 
+		 real irpf = simulador_de_irpf()
+
+		terco_ferias = salario_bruto /3
+
+		total_bruto = salario_bruto + terco_ferias
+
+		valor_ferias = total_bruto - inss - irpf
+
+		valor_ferias= valor_ferias - salario_bruto
+		
+		retorne valor_ferias		
+	}
+	funcao real calculo_do_piss()
+	{
+		real salario=salario_oficial
+		escreva("╔══════════════════════════════╗\n")
+		escreva("║ PROGRAMA CALCULADOR DE PISS  ║\n")
+		escreva("╚══════════════════════════════╝\n")
+		inteiro tempo_pis, tempo_trabalhados, meses_trabalhados, anos_trabalhados
+		real valor_pis
+		
+		escreva("Você está cadastrado no PIS há quanto tempo? ")
+		leia(tempo_pis)
+
+		escreva("Você tem quantos anos de empresa? ")
+		leia(anos_trabalhados)
+		
+		meses_trabalhados =  anos_trabalhados * 12
+
+		valor_pis = salario /12 * meses_trabalhados
+		
+		//quantidade de anos
+		se( tempo_pis < 5)
+		{
+			escreva("Você não tem direito de isufruir do programa PIS \n")
+		}
+		senao
+		{
+			escreva("Você tem direito ao programa PIS, vamos fazer o cálculo do seu PIS")
+		}
+
+		valor_pis = m.arredondar(valor_pis, 3)
+		retorne  valor_pis
+		
+	}
 }
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 119; 
- * @DOBRAMENTO-CODIGO = [66, 73, 124];
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
