@@ -34,7 +34,10 @@ programa
 		escreva("║ 5- Depósito do FGTS                                    ║\n")
 		escreva("║ 6- Seguro Desemprego                                   ║\n")
 		escreva("║ 7- Vale Transporte                                     ║\n")
-		escreva("║ 8- Seguro Desemprego                                   ║\n")
+		escreva("║ 8- PIS                                                 ║\n")
+		escreva("║ 9- ADICIONAL NOTURNO                                   ║\n")
+		escreva("║ 10- PERICULOSIDADE                                     ║\n")
+		escreva("║ 11- HORA EXTRA                                         ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
 		escreva("║                 ESCOLHA UM NÚMERO ACIMA :              ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
@@ -63,8 +66,20 @@ programa
 				tela_seguro_desemprego()
   			pare
   			caso 7:
-				
-  			pare    			
+				tela_vale_transporte()
+  			pare
+  			caso 8:
+				tela_pis()
+  			pare
+  			caso 9:
+				tela_adicional_noturno()
+  			pare
+  			caso 10:
+				tela_periculosidade()
+  			pare
+  			caso 11:
+				tela_hora_extra()
+  			pare   			    			
   			caso 0:
   				final()
   			pare
@@ -446,8 +461,6 @@ programa
 		real salario=salario_p, quantidade_vt_dia, calculo_vt, gasto_mensal, valor_vt
 		cadeia resposta_colaborador
 		cadeia vale_transporte  
-		escreva(" Informe seu sálario: ")
-		leia(salario)
 
 		escreva(" O colaborador utiliza meio de transporte público coletivo? ")
 		leia(resposta_colaborador)
@@ -498,6 +511,231 @@ programa
 	}
 	funcao tela_vale_transporte()
 	{
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ VERIFICADOR DE VALE TRANSPORTE                         ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
+		escreva("║ DIGITE SEU SALÁRIO: ")
+		real salario_oficial
+		leia(salario_oficial)
+		cadeia vale_transporte=verificador_de_vale_transporte(salario_oficial)
 		
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║  ",vale_transporte,"                 ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
+	}
+	funcao real calculador_e_verificador_de_piss(real salario_p)
+	{
+		real salario = salario_p
+		inteiro tempo_pis, tempo_trabalhados, meses_trabalhados, anos_trabalhados
+		real valor_pis
+		
+		escreva("Você está cadastrado no PIS há quanto tempo? ")
+		leia(tempo_pis)
+
+		escreva("Você tem quantos anos de empresa? ")
+		leia(anos_trabalhados)
+		
+		meses_trabalhados =  anos_trabalhados * 12
+
+		valor_pis = salario /12 * meses_trabalhados
+		
+		//quantidade de anos
+		se( tempo_pis < 5)
+		{
+			escreva("Você não tem direito de isufruir do programa PIS \n")
+		}
+		senao
+		{
+			escreva("Você tem direito ao programa PIS, vamos fazer o cálculo do seu PIS")
+		}
+
+		valor_pis = m.arredondar(valor_pis, 3)
+		escreva("\nJá que você tem direito ao PIS, você irá receber R$", valor_pis)
+		retorne valor_pis
+	}
+	funcao tela_pis()
+	{
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ VERIFICADOR DE VALE TRANSPORTE                         ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
+		escreva("║ DIGITE SEU SALÁRIO: ")
+		real salario_oficial
+		leia(salario_oficial)
+		real valor_pis=calculador_e_verificador_de_piss(salario_oficial)
+		se(valor_pis!=0 )
+		{
+			
+			limpa()
+			escreva("╔════════════════════════════════════════════════════════╗\n")
+			escreva("║         COMO VOCÊ TEM DIREITO AO PIS O VALOR É         ║\n")
+			escreva("║                   ",valor_pis,"                         ║\n")
+			escreva("╚════════════════════════════════════════════════════════╝\n")
+		}
+		senao
+		{
+			escreva("╔════════════════════════════════════════════════════════╗\n")
+			escreva("║         COMO VOCÊ TEM DIREITO AO PIS O VALOR É         ║\n")
+			escreva("║                     ",valor_pis,"                     ║\n")
+			escreva("╚════════════════════════════════════════════════════════╝\n")
+		}
+	}
+	funcao real calculador_de_adicional_noturno(real salario_p)
+	{
+		real salario = salario_p
+		real horas_mensais, horas_noturna, valor_hora, valor_hora_trabalhada, valor_adcional
+
+		escreva("Informe quantas horas voce trabalha mensalmente: ")
+		leia(horas_mensais)
+
+		escreva("Informe quantas horas noturna a mais trabalhou: ")
+		leia(horas_noturna)
+
+		valor_hora = salario /horas_mensais
+
+		valor_hora_trabalhada = valor_hora * 20/100
+
+		valor_adcional = horas_noturna * valor_hora_trabalhada
+
+		retorne valor_adcional 
+
+	}
+	funcao tela_adicional_noturno()
+	{
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ CALCULADORA DE ADICIONAL NOTURNO                       ║\n")
+		escreva("╠════════════════════════════════════════════════════════╝\n")
+		escreva("║ DIGITE SEU SALÁRIO: ")
+		real salario_oficial
+		leia(salario_oficial)
+		real adicional_noturno=calculador_de_adicional_noturno(salario_oficial)
+		limpa()
+		adicional_noturno= m.arredondar(adicional_noturno, 2)
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║            O VALOR DO SEU ADICIONAL NOTURNO É          ║\n")
+		escreva("║                          ",adicional_noturno+salario_oficial,"                       ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
+	}
+	funcao real calculador_de_periculosidade(real salario_p)
+	{
+		real salario=salario_p
+		real add_de_periculosidade
+		add_de_periculosidade=0.3*salario
+		retorne add_de_periculosidade
+			
+	}
+	funcao tela_periculosidade()
+	{
+		
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ CALCULADORA DE PERICULOSIDADE                          ║\n")
+		escreva("╠════════════════════════════════════════════════════════╝\n")
+		escreva("║ DIGITE SEU SALÁRIO: ")
+		real salario_oficial
+		leia(salario_oficial)
+		real periculosidade=calculador_de_periculosidade(salario_oficial)
+		limpa()
+		periculosidade= m.arredondar(periculosidade, 2)
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║              SUA PERICULOSIDADE É IGUAL A:             ║\n")
+		escreva("║                         ",periculosidade,"                          ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
+	}
+	funcao real calculador_de_hora_extra(real salario_p,real inss_p,real irpf_p)
+	{
+		const inteiro taxa_hora_extra100 = 2
+		const real taxa_hora_extra50 = 0.5
+		real valor_hora100 = 0, valor_hora_extra100 = 0, valor_total_extra100 = 0, valor_hora50 = 0, valor_hora_extra50 = 0, valor_total_extra50 = 0, soma_extra100 = 0, soma_extra50 = 0
+		real salario_base = salario_p
+		real carga_horaria, hora_extra_uteis, hora__feriado_domingo, inss =  inss_p, irpf =  irpf_p, soma_total, soma_total2,valor_final=0
+		caracter trabalho_feriado_domingo, dias_uteis
+		escreva("informe a carga horária mensal do colaborador de acordo com o contrato de trablaho do mes: \n")
+		leia(carga_horaria)
+		escreva("------------------------------------------------------\n")
+	
+		escreva("o colaborador relizou trabalho em domingos e feriados?: \n")
+		escreva("**** (s) para sim ou (n) para não) ***** \n")
+		leia(trabalho_feriado_domingo)
+		escreva("-----------------------------------------------\n")
+
+		se(trabalho_feriado_domingo == 's')
+		{
+			escreva("o colaborador relizou hora extra em dias uteis? ")
+			leia(dias_uteis)
+			escreva("-------------------------------------------------\n")
+
+			se(dias_uteis == 's')
+			{
+
+			escreva("informe as horas extras trabalhadas em dias uteis: ")
+			leia(hora_extra_uteis)
+			escreva("----------------------------------------------------------\n")
+			escreva("informe as horas extras trabalhadas em domingos e feriados: ")
+			leia(hora__feriado_domingo)
+	
+			// hora extra 100%
+			valor_hora100 = salario_base / carga_horaria
+			valor_hora_extra100 = valor_hora100 * taxa_hora_extra100
+			valor_total_extra100 = valor_hora_extra100 * hora__feriado_domingo
+			soma_extra100 = valor_total_extra100
+
+			// hora extra 50%
+			valor_hora50 = salario_base / carga_horaria
+			valor_hora_extra50 = valor_hora50 * taxa_hora_extra50
+			valor_total_extra50 = valor_hora_extra50 * hora_extra_uteis
+			soma_extra50 = valor_total_extra50 + valor_total_extra100
+			soma_total = soma_extra100 + soma_extra50 + salario_base
+			
+			valor_final= soma_total - inss - irpf
+			}
+		senao
+			{
+			escreva("informe as horas extras trabalhadas em domingos e feriados: ")
+			leia(hora__feriado_domingo)
+	
+			valor_hora100 = salario_base / carga_horaria
+			valor_hora_extra100 = valor_hora100 * taxa_hora_extra100
+			valor_total_extra100 = valor_hora_extra100 * hora__feriado_domingo
+			soma_extra100 = valor_total_extra100
+			soma_total2 = soma_extra100 + salario_base
+			valor_final=soma_total2 - inss - irpf
+			}
+		}
+		senao
+		{
+			escreva("informe as horas extras trabalhadas em dias uteis: \n")
+			leia(hora_extra_uteis)	
+
+			valor_hora50 = salario_base / carga_horaria
+			valor_hora_extra50 = valor_hora50 * taxa_hora_extra50
+			valor_total_extra50 = valor_hora_extra50 * hora_extra_uteis
+			soma_extra50 = valor_total_extra50
+
+			 valor_final=soma_extra50 + salario_base
+		}
+		retorne valor_final
+	}
+	funcao tela_hora_extra()
+	{
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ CALCULADORA SALARIO DE FÁRIAS                          ║\n")
+		escreva("╠════════════════════════════════════════════════════════╝\n")
+		escreva("║ DIGITE SEU SALÁRIO: ")
+		real salario_oficial
+		leia(salario_oficial)
+		real inss=calculador_de_inss(salario_oficial)
+		real irpf=calculador_de_irpf(salario_oficial, inss)
+		real hora_extra=calculador_de_hora_extra(salario_oficial, inss, irpf)
+		hora_extra= m.arredondar(hora_extra, 2)
+		limpa()
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║               O VALOR TOTAL DA SUAS FERIÁS :           ║\n")
+		escreva("║                        ",hora_extra,"                          ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
 	}
 }
