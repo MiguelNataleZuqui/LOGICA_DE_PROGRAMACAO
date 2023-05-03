@@ -14,8 +14,6 @@ programa
 		leia(opcao_escolhida)
 		
 		seletor_programa(opcao_escolhida)
-		detalhamento()
-		final()
 	}
 	funcao final()
 	{
@@ -43,6 +41,7 @@ programa
 		escreva("║ 9- ADICIONAL NOTURNO                                   ║\n")
 		escreva("║ 10- PERICULOSIDADE                                     ║\n")
 		escreva("║ 11- HORA EXTRA                                         ║\n")
+		escreva("║ 12- SALÁRIO LÍQUIDO DO FINAL DO MÊS                    ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
 		escreva("║                 ESCOLHA UM NÚMERO ACIMA :              ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
@@ -84,7 +83,10 @@ programa
   			pare
   			caso 11:
 				tela_hora_extra()
-  			pare   			    			
+  			pare
+  			caso 12:
+				tela_detalhamento()
+  			pare     			    			
   			caso 0:
   				final()
   			pare
@@ -116,6 +118,28 @@ programa
 		escreva("║                      SALARIO BRUTO:                    ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
 	}
+	funcao tela_detalhamento()
+	{
+		cadeia salario
+		real salario_of
+		real hora_extra
+		real add_noturno
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ DETALHAMENTO:                                          ║\n")
+		escreva("║ DESCUBRA SEU SALÁRIO LÍQUIDO MENSAL RESPONDENDO        ║\n")
+		escreva("║ ALGUMAS PERGUNTAS :                                    ║\n")
+		escreva("║ DIGITE SEU SALÁRIO:\n")
+		escreva("║ R$ ")
+		leia(salario)
+		salario_of=convertor_de_cadeia_para_real(salario)
+		real vale_transporte
+		real periculosidade=0 
+		periculosidade = segunda_tela_periculosidade(salario_of)
+		real inss=calculador_de_inss(salario_of)
+		real irpf=calculador_de_irpf(salario_of, inss)
+		real fgts_deposito=calculador_do_deposito_fgts(salario_of)
+	}
+	
 	//=================================================================================================================================================
 	// FUNCÕES DE CALCULADORAS E VERIFICADORES
 	//=================================================================================================================================================
@@ -616,6 +640,7 @@ programa
 	}
 	
 	// VERIFICADOR DE VALE TRANSPORTE
+
 	
 	funcao cadeia verificador_de_vale_transporte(real salario_p)
 	{
@@ -624,7 +649,8 @@ programa
 		real salario=salario_p, quantidade_vt_dia, calculo_vt, gasto_mensal, valor_vt
 		cadeia valor_vt_cadeia
 		cadeia resposta_colaborador
-		cadeia vale_transporte  
+		cadeia vale_transporte 
+		real passa_valor,juntar_valor 
 
 		escreva("║ O colaborador utiliza meio de transporte público coletivo?(s)SIM/(n)NÃO:\n║ ")
 		leia(resposta_colaborador)
@@ -673,6 +699,35 @@ programa
 		}
 		retorne vale_transporte					
 	}
+	funcao real calculador_do_valor_do_vale_transporte(real salario_p)
+	{
+		const inteiro quantidade_trabalhada = 20
+		const real porcentagem = 0.06
+		real salario=salario_p
+		inteiro quantidade_vt_dia
+		cadeia valor_vt_cadeia
+		real valor_vt
+		real calculo_vt
+		real gasto_mensal
+		real vale_transporte
+		escreva("\n║ Informe a quantidade de vales necessários por dia: ")
+		leia(quantidade_vt_dia)
+		escreva("║ Informe o valor da passagem: ")
+		leia(valor_vt_cadeia)
+		valor_vt= convertor_de_cadeia_para_real(valor_vt_cadeia)
+		calculo_vt = salario * porcentagem
+		gasto_mensal = quantidade_vt_dia *valor_vt * quantidade_trabalhada
+		se(gasto_mensal > calculo_vt)
+		{
+					
+		}
+		senao 
+		{
+			
+					
+		}
+		retorne 0
+	}
 	funcao tela_vale_transporte()
 	{
 		limpa()
@@ -706,6 +761,32 @@ programa
 				inicio()
 			}	
 		}	
+	}
+	funcao real segunda_tela_vale_transporte(real salario_p)
+	{
+		real salario=salario_p
+		caracter resposta_do_usuario
+		cadeia resposta_em_cadeia
+		real vale_transporte=0
+		escreva("║ NA SUA EMPRESA VOCÊ TEM O DIREITO VALE TRANSPOTE?(s)SIM/(n)NÃO: \n║ ")
+		leia(resposta_em_cadeia)
+		resposta_em_cadeia= t.caixa_baixa(resposta_em_cadeia)
+		resposta_do_usuario= ti.cadeia_para_caracter(resposta_em_cadeia)
+		
+		escolha(resposta_do_usuario)
+		{
+			caso 's':
+				calculador_do_valor_do_vale_transporte(salario)
+			pare
+			caso 'n':
+				vale_transporte=0
+			pare
+			caso contrario:
+			 escreva("║ POR FAVOR DIGITE UMA RESPOSTA CORRETA\n")
+			 
+			
+		}
+		retorne vale_transporte
 	}
 	
 	//VERIFICADOR CALCULADOR DE PIS
@@ -892,7 +973,32 @@ programa
 			}	
 		}	
 	}
-	
+	funcao real segunda_tela_periculosidade(real salario_p)
+	{
+		real salario=salario_p
+		caracter resposta_do_usuario
+		cadeia resposta_em_cadeia
+		real periculosidade=0
+		escreva("║ NA SUA EMPRESA VOCÊ TEM O ADICIONAL DE PERICULOSIDADE?(s)SIM/(n)NÃO: \n║ ")
+		leia(resposta_em_cadeia)
+		resposta_em_cadeia= t.caixa_baixa(resposta_em_cadeia)
+		resposta_do_usuario= ti.cadeia_para_caracter(resposta_em_cadeia)
+		
+		escolha(resposta_do_usuario)
+		{
+			caso 's':
+				periculosidade= calculador_de_periculosidade(salario)
+			pare
+			caso 'n':
+				periculosidade=0
+			pare
+			caso contrario:
+			 escreva("║ POR FAVOR DIGITE UMA RESPOSTA CORRETA\n")
+			 
+			
+		}
+		retorne periculosidade
+	}
 	// CALCULADOR HORA EXTRA
 	
 	funcao real calculador_de_hora_extra(real salario_p,real inss_p,real irpf_p)
@@ -933,7 +1039,7 @@ programa
 			valor_hora_extra50 = valor_hora50 * taxa_hora_extra50
 			valor_total_extra50 = valor_hora_extra50 * hora_extra_uteis
 			soma_extra50 = valor_total_extra50 + valor_total_extra100
-			soma_total = soma_extra100 + soma_extra50 + salario_base
+			soma_total = soma_extra100 + soma_extra50 
 			
 			valor_final= soma_total - inss - irpf
 			}
@@ -1001,6 +1107,37 @@ programa
 				inicio()
 			}	
 		}	
+	}
+	funcao real segunda_tela_hora_extra(real salario_p,real inss_p,real irpf_p)
+	{
+		const inteiro taxa_hora_extra100 = 2
+		const real taxa_hora_extra50 = 0.5
+		real valor_hora100 = 0, valor_hora_extra100 = 0, valor_total_extra100 = 0, valor_hora50 = 0, valor_hora_extra50 = 0, valor_total_extra50 = 0, soma_extra100 = 0, soma_extra50 = 0
+		real salario_base = salario_p
+		real carga_horaria, hora_extra_uteis, hora__feriado_domingo, inss =  inss_p, irpf =  irpf_p, soma_total, soma_total2,valor_final=0
+		caracter trabalho_feriado_domingo, dias_uteis
+		escreva("║ Informe a carga horária mensal do colaborador de acordo com o contrato de trablaho do mes: \n")
+		leia(carga_horaria)
+		escreva("║ Informe as horas extras trabalhadas em dias uteis:\n║ ")
+		leia(hora_extra_uteis)
+		escreva("║ Informe as horas extras trabalhadas em domingos e feriados:\n║ ")
+		leia(hora__feriado_domingo)
+	
+			// hora extra 100%
+			valor_hora100 = salario_base / carga_horaria
+			valor_hora_extra100 = valor_hora100 * taxa_hora_extra100
+			valor_total_extra100 = valor_hora_extra100 * hora__feriado_domingo
+			soma_extra100 = valor_total_extra100
+
+			// hora extra 50%
+			valor_hora50 = salario_base / carga_horaria
+			valor_hora_extra50 = valor_hora50 * taxa_hora_extra50
+			valor_total_extra50 = valor_hora_extra50 * hora_extra_uteis
+			soma_extra50 = valor_total_extra50 + valor_total_extra100
+			soma_total = soma_extra100 + soma_extra50 
+			
+			valor_final= soma_total - inss - irpf
+			retorne valor_final
 	}
 	//=================================================================================================================================================
 	// FUNCÕES ADICIONAIS
