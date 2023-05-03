@@ -14,8 +14,6 @@ programa
 		leia(opcao_escolhida)
 		
 		seletor_programa(opcao_escolhida)
-		detalhamento()
-		final()
 	}
 	funcao final()
 	{
@@ -43,6 +41,7 @@ programa
 		escreva("║ 9- ADICIONAL NOTURNO                                   ║\n")
 		escreva("║ 10- PERICULOSIDADE                                     ║\n")
 		escreva("║ 11- HORA EXTRA                                         ║\n")
+		escreva("║ 12- DETALHAMENTO                                       ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
 		escreva("║                 ESCOLHA UM NÚMERO ACIMA :              ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
@@ -84,6 +83,9 @@ programa
   			pare
   			caso 11:
 				tela_hora_extra()
+  			pare
+  			caso 12:
+				tela_detalhamento()
   			pare   			    			
   			caso 0:
   				final()
@@ -94,8 +96,21 @@ programa
 		}
 			
 	}
-	funcao detalhamento()
+	
+	//DETALHAMENTO
+	
+	funcao detalhamento(real salario_p)
+	
 	{
+		real salario_bruto=salario_p
+		real salario_liquido
+		real inss
+		real irpf
+		real vale_transporte 
+		real fgts_deposito
+		real prericulosidade
+		real adicional_noturno
+		real hora_extra
 		escreva("╔════════════════════════════════════════════════════════╗\n")
 		escreva("║ DETALHAMENTO:                                          ║\n")
 		escreva("║ SERÃO EXIBIDOS SEUS PROVENTOS E DESCONTOS E, AO FINAL, ║\n")
@@ -115,6 +130,26 @@ programa
 		escreva("║                     SALÁRIO LÍQUIDO                    ║\n")
 		escreva("║                      SALARIO BRUTO:                    ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
+	}
+	funcao tela_detalhamento()
+	{
+		real salario
+		real hora_extra
+		real add_noturno
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ DETALHAMENTO                                           ║\n")
+		escreva("╠════════════════════════════════════════════════════════╠\n")
+		escreva("║ DESCUBRA SEU SALÁRIO LIQUIDO NO FINAL DO MÊS APÓS      ║\n")
+		escreva("║ RESPONDER UMA SÉRIE DE PERGUNTAS                       ║\n")
+		escreva("║ DIGITE SEU SALÁRIO:\n")
+		escreva("║ R$ ")
+		leia(salario)
+		 
+		
+		cadeia periculosidade=segunda_tela_periulosidade()
+		cadeia vale_transporte=segunda_tela_vale_transporte()
+		
+		
 	}
 	//=================================================================================================================================================
 	// FUNCÕES DE CALCULADORAS E VERIFICADORES
@@ -617,20 +652,17 @@ programa
 	
 	// VERIFICADOR DE VALE TRANSPORTE
 	
-	funcao cadeia verificador_de_vale_transporte(real salario_p)
+	funcao cadeia verificador_de_vale_transporte(real salario_p,cadeia resposta_do_verificador_p)
 	{
 		const real porcentagem = 0.06
 		const inteiro quantidade_trabalhada = 20
 		real salario=salario_p, quantidade_vt_dia, calculo_vt, gasto_mensal, valor_vt
 		cadeia valor_vt_cadeia
-		cadeia resposta_colaborador
+		cadeia resposta_colaborador,resposta_do_verificador_f=resposta_do_verificador_p
 		cadeia vale_transporte  
-
-		escreva("║ O colaborador utiliza meio de transporte público coletivo?(s)SIM/(n)NÃO:\n║ ")
-		leia(resposta_colaborador)
 		
-		resposta_colaborador = Texto.caixa_baixa(resposta_colaborador)
-		se(Texto.caixa_baixa(resposta_colaborador) == "s")
+		resposta_do_verificador_f = Texto.caixa_baixa(resposta_do_verificador_f)
+		se(Texto.caixa_baixa(resposta_do_verificador_f) == "s")
 		{
 			escreva("\n║ O colaborador tem direito ao vale transporte\n")
 			escreva("\n║ Informe a quantidade de vales necessários por dia: ")
@@ -683,7 +715,8 @@ programa
 		cadeia salario_cadeia
 		leia(salario_cadeia)
 		real salario_oficial= convertor_de_cadeia_para_real(salario_cadeia)
-		cadeia vale_transporte=verificador_de_vale_transporte(salario_oficial)
+		cadeia resposta_do_vale_transporte=segunda_tela_vale_transporte()
+		cadeia vale_transporte=verificador_de_vale_transporte(salario_oficial,resposta_do_vale_transporte)
 		
 		limpa()
 		escreva("╔════════════════════════════════════════════════════════╗\n")
@@ -706,6 +739,13 @@ programa
 				inicio()
 			}	
 		}	
+	}
+	funcao cadeia segunda_tela_vale_transporte()
+	{
+		cadeia verificador_de_vale_transporte_f
+		escreva("║ O colaborador utiliza meio de transporte público coletivo?(s)SIM/(n)NÃO:\n║ ")
+		leia(verificador_de_vale_transporte_f)
+		retorne verificador_de_vale_transporte_f
 	}
 	
 	//VERIFICADOR CALCULADOR DE PIS
@@ -865,6 +905,9 @@ programa
 		escreva("║ R$ ")
 		cadeia salario_cadeia
 		leia(salario_cadeia)
+		cadeia verificacao=segunda_tela_periulosidade()
+		se(verificacao=="S")
+		{
 		real salario_oficial= convertor_de_cadeia_para_real(salario_cadeia)
 		real periculosidade=calculador_de_periculosidade(salario_oficial)
 		limpa()
@@ -873,6 +916,14 @@ programa
 		escreva("║              SUA PERICULOSIDADE É IGUAL A:             ║\n")
 		escreva("║                         ",periculosidade,"                          ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
+		}
+		senao
+		{
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║              SUA PERICULOSIDADE É IGUAL A:             ║\n")
+		escreva("║                         ",0,"                          ║\n")
+		escreva("╚════════════════════════════════════════════════════════╝\n")
+		}
 		se(volta_ao_menu())
 		{
 			
@@ -892,6 +943,14 @@ programa
 			}	
 		}	
 	}
+	funcao cadeia segunda_tela_periulosidade()
+	{
+		cadeia resposta_periculosidade
+		escreva("║ Na sua empresa tem o adicional de periculosidadade\n║ (S)sim(N)não\n║ ")
+		leia(resposta_periculosidade)
+		resposta_periculosidade=t.caixa_alta(resposta_periculosidade)
+		retorne resposta_periculosidade
+	}
 	
 	// CALCULADOR HORA EXTRA
 	
@@ -905,7 +964,7 @@ programa
 		caracter trabalho_feriado_domingo, dias_uteis
 		escreva("║ Informe a carga horária mensal do colaborador de acordo com o contrato de trablaho do mes: \n")
 		leia(carga_horaria)
-	
+			
 		escreva("║ O colaborador relizou trabalho em domingos e feriados?(s)SIM/(n)NÃO:\n║")
 		leia(trabalho_feriado_domingo)
 
@@ -1001,6 +1060,10 @@ programa
 				inicio()
 			}	
 		}	
+	}
+	funcao segunta_tela_hora_extra()
+	{
+		
 	}
 	//=================================================================================================================================================
 	// FUNCÕES ADICIONAIS
