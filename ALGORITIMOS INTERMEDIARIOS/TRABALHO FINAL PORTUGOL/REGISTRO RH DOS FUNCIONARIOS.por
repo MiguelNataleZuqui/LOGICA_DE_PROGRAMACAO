@@ -1,5 +1,7 @@
 programa
 {
+	inclua biblioteca Arquivos --> a
+	inclua biblioteca ServicosWeb --> WS
 	inclua biblioteca Tipos --> ti
 	inclua biblioteca Texto --> t
 	inclua biblioteca Matematica --> m
@@ -9,7 +11,7 @@ programa
 	//=================================================================================================================================================
 	funcao  inicio()
 	{
-		
+		banco_de_dados()
 		menu()
 		inteiro opcao_escolhida
 		leia(opcao_escolhida)
@@ -104,20 +106,21 @@ programa
 		escreva("║ SERÃO EXIBIDOS SEUS PROVENTOS E DESCONTOS E, AO FINAL, ║\n")
 		escreva("║ E AO FINAL SERÁ CALCULADO SEU SALÁRIO LÍQUIDO MENSAL   ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
-		escreva("║  SALARIO BASE:",salario_bruto_p,"                                              ║\n")
+		escreva("║  SALARIO BASE:",salario_bruto_p,"                                     ║\n")
 		escreva("║  ---PROVENTOS--                                        ║\n")
-		escreva("║  HORA EXTRA: + R$ ",hora_extra_p,"                                   ║\n")
-		escreva("║  ADICIONAL NOTURNO: + R$ ",add_noturno_p,"                                       ║\n")
-		escreva("║  PERICULOSIDADE : + R$ ",periculosidade_p,"                                  ║\n")
-		escreva("║  DEPÓSITO FGTS: + R$ ",fgts_mensal_p,"                                 ║\n")
+		escreva("║  HORA EXTRA: + R$ ",hora_extra_p,"                                ║\n")
+		escreva("║  ADICIONAL NOTURNO: + R$ ",add_noturno_p,"                         ║\n")
+		escreva("║  PERICULOSIDADE : + R$ ",periculosidade_p,"                           ║\n")
+		escreva("║  DEPÓSITO FGTS: + R$ ",fgts_mensal_p,"                             ║\n")
 		escreva("║  ---DESCONTOS---                                       ║\n")
-		escreva("║  INSS:- R$ ",inss_p,"                                                ║\n")
-		escreva("║  IRPF: - R$ ",irpf_p,"                                 ║\n")
-		escreva("║  Vale Transporte: - R$ ",vale_transporte_p,"                                    ║\n")
+		escreva("║  INSS:- R$ ",inss_p,"                                      ║\n")
+		escreva("║  IRPF: - R$ ",irpf_p,"                                      ║\n")
+		escreva("║  Vale Transporte: - R$ ",vale_transporte_p,"                           ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
 		escreva("║                     SALÁRIO LÍQUIDO                    ║\n")
-		escreva("║                   ",salario_liquido_p,"                    ║\n")
+		escreva("║                         ",salario_liquido_p,"                        ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
+		
 	}
 	funcao tela_detalhamento()
 	{
@@ -133,18 +136,50 @@ programa
 		escreva("║ R$ ")
 		leia(salario)
 		salario_of=convertor_de_cadeia_para_real(salario)
+		
 		real vale_transporte = segunda_tela_vale_transporte(salario_of)
+		
 		real periculosidade=0 
 		periculosidade = segunda_tela_periculosidade(salario_of)
+		
 		real hora_extra
 		real carga_horaria=220
 		hora_extra=segunda_tela_hora_extra(salario_of, carga_horaria)
+		
 		real add_noturno=segunda_tela_add_noturno(salario_of, carga_horaria)
+		
 		real inss=calculador_de_inss(salario_of)
+		
 		real irpf=calculador_de_irpf(salario_of, inss)
+		
 		real fgts_mensal=calculador_fgts_mensal(salario_of)
-		salario_liquido=(hora_extra+add_noturno+fgts_mensal+periculosidade)-(inss+irpf+vale_transporte)
+		salario_liquido=((hora_extra+add_noturno+fgts_mensal+periculosidade)-(inss+irpf+vale_transporte))+salario_of
+		salario_liquido= m.arredondar(salario_liquido, 2)
+		
+		inss=m.arredondar(inss, 2)
+		irpf=m.arredondar(irpf, 2)
+		fgts_mensal=m.arredondar(fgts_mensal, 2)
+		hora_extra=m.arredondar(hora_extra, 2)
+		add_noturno=m.arredondar(add_noturno, 2)
+
 		detalhamento(salario, hora_extra, add_noturno, periculosidade, fgts_mensal, inss, irpf, vale_transporte,salario_liquido)
+		se(volta_ao_menu())
+		{
+			
+			tela_detalhamento()
+		}	
+		senao 
+		{
+			se(finalizar_programa())
+			{
+				 final()
+			}	
+			senao 
+			{
+				
+				inicio()
+			}	
+		}	
 	}
 	
 	//=================================================================================================================================================
@@ -1201,5 +1236,89 @@ programa
 		{
 			retorne falso
 		}
+	}
+	funcao concertar_programas()
+	{
+		
+	}
+	funcao banco_de_dados()
+	{
+		cadeia fazer_ou_nao_outro_cadastro
+		cadeia nome_completo, telefone, email, idade, cep, endereco_sem_cep, endereco
+		inteiro n = 1, numero_caracteres 
+		const cadeia NOME = "NOME COMPLETO: "
+		const cadeia TEL = "TELEFONE: "
+		const cadeia EMAIL = "EMAIL: "
+		const cadeia IDA = "IDADE: "
+
+		faca
+		{
+				escreva("Infome seu nome completo: ")
+				leia(nome_completo)
+				nome_completo = t.caixa_alta(nome_completo)
+		
+				escreva("Informe seu telefone: ")
+				leia(telefone)
+				telefone = t.caixa_alta(telefone)
+		
+				escreva("Informe seu email: ")
+				leia(email)
+				email = t.caixa_alta(email)
+		
+				escreva("Informe sua idade: ")
+				leia(idade)
+				idade = t.caixa_alta(idade)
+		
+				escreva("Digite seu CEP: \n")
+				leia(cep)
+				escreva("---------------------\n")
+				
+				endereco = WS.obter_dados("https://viacep.com.br/ws/"+ cep + "/json/")
+				numero_caracteres = Texto.numero_caracteres(endereco)
+				
+				endereco_sem_cep = Texto.extrair_subtexto(endereco, 22, numero_caracteres)
+		
+				endereco_sem_cep = Texto.substituir(endereco_sem_cep, ",","\n")
+				escreva(endereco_sem_cep)
+		
+				logico arquivo_existe = a.arquivo_existe("./banco de dados.txt")
+				se(arquivo_existe)
+				{
+					
+					inteiro arquivo = a.abrir_arquivo("./banco de dados.txt", a.MODO_ACRESCENTAR)
+					a.escrever_linha("\n", arquivo)
+					a.escrever_linha("FUNCIONÁRIO "+  n + "\n", arquivo)
+					n++
+					a.escrever_linha("\n", arquivo)
+					a.escrever_linha(NOME+ nome_completo, arquivo)
+					a.escrever_linha(TEL+ telefone, arquivo)
+					a.escrever_linha(EMAIL+ email, arquivo)
+					a.escrever_linha(IDA+ idade, arquivo)
+		
+				a.fechar_arquivo(arquivo)
+				}
+				senao 
+				{
+					inteiro arquivo = a.abrir_arquivo("./banco de dados.txt", a.MODO_ESCRITA)
+					a.escrever_linha("\n", arquivo)
+					a.escrever_linha("FUNCIONÁRIO "+  n + "\n", arquivo)
+					n++
+					a.escrever_linha("\n", arquivo)
+					a.escrever_linha(NOME+ nome_completo, arquivo)
+					a.escrever_linha(TEL+ telefone, arquivo)
+					a.escrever_linha(EMAIL+ email, arquivo)
+					a.escrever_linha(IDA+ idade, arquivo)
+		
+				a.fechar_arquivo(arquivo)
+				}
+				
+				
+				escreva("DESEJA FAZER OUTRO CADASTRO") 
+				leia(fazer_ou_nao_outro_cadastro)
+				se(fazer_ou_nao_outro_cadastro=="n" ou fazer_ou_nao_outro_cadastro=="s")
+				{
+					fazer_ou_nao_outro_cadastro = t.caixa_alta(fazer_ou_nao_outro_cadastro)
+				}
+				}enquanto(fazer_ou_nao_outro_cadastro=="S")
 	}
 }
