@@ -11,7 +11,6 @@ programa
 	//=================================================================================================================================================
 	funcao  inicio()
 	{
-		banco_de_dados()
 		menu()
 		inteiro opcao_escolhida
 		leia(opcao_escolhida)
@@ -20,6 +19,7 @@ programa
 	}
 	funcao final()
 	{
+		limpa()
 		escreva("╔════════════════════════════════════════════════════════╗\n")
 		escreva("║ OBRIGADO POR  USAR   NOSSO                             ║\n")
 		escreva("║ PROGRAMA DE RECURSOS HUMANOS                           ║\n")
@@ -28,6 +28,7 @@ programa
 	 funcao menu()
 	
 	{
+		escreva("\n\n")
 		escreva("╔════════════════════════════════════════════════════════╗\n")
 		escreva("║ REGISTRO RH DOS FUNCIONARIOS                           ║\n")
 		escreva("║ O PROGRAMA  REALIZARÁ  AS                              ║\n")
@@ -45,6 +46,8 @@ programa
 		escreva("║ 10- PERICULOSIDADE                                     ║\n")
 		escreva("║ 11- HORA EXTRA                                         ║\n")
 		escreva("║ 12- SALÁRIO LÍQUIDO DO FINAL DO MÊS                    ║\n")
+		escreva("║ 13- OPÇÃO CADASTRO                                     ║\n")
+		escreva("║ 0- FINALIZAR PROGRAMA                                  ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
 		escreva("║                 ESCOLHA UM NÚMERO ACIMA :              ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
@@ -89,6 +92,9 @@ programa
   			pare
   			caso 12:
 				tela_detalhamento()
+  			pare
+  			caso 13:
+				fazer_outro_cadastro()
   			pare     			    			
   			caso 0:
   				final()
@@ -120,6 +126,7 @@ programa
 		escreva("║                     SALÁRIO LÍQUIDO                    ║\n")
 		escreva("║                         ",salario_liquido_p,"                        ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
+		
 		
 	}
 	funcao tela_detalhamento()
@@ -166,20 +173,12 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_detalhamento()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
-		}	
+			tela_detalhamento()
+		}		
 	}
 	
 	//=================================================================================================================================================
@@ -261,19 +260,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_inss()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_inss()
 		}	
 		
 		 
@@ -339,19 +330,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_irpf()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_irpf()
 		}	
 		
 	}
@@ -403,19 +386,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_ferias()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_ferias()
 		}	
 		
 	}
@@ -451,19 +426,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_fgts_mensal()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_fgts_mensal()
 		}	
 	}
 	
@@ -503,19 +470,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_deposito_fgts()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_deposito_fgts()
 		}	
 	}
 	
@@ -665,19 +624,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_seguro_desemprego()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_seguro_desemprego()
 		}	
 	}
 	
@@ -760,19 +711,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_vale_transporte()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_vale_transporte()
 		}	
 	}
 	funcao real segunda_tela_vale_transporte(real salario_p)
@@ -797,7 +740,8 @@ programa
 				vale_transporte=0
 			pare
 			caso contrario:
-			 escreva("║ POR FAVOR DIGITE UMA RESPOSTA CORRETA\n")
+				escreva("║ POR FAVOR DIGITE UMA RESPOSTA CORRETA\n")
+			 	tela_detalhamento()
 			 
 			
 		}
@@ -854,7 +798,7 @@ programa
 			limpa()
 			escreva("╔════════════════════════════════════════════════════════╗\n")
 			escreva("║         COMO VOCÊ TEM DIREITO AO PIS O VALOR É         ║\n")
-			escreva("║                   ",valor_pis,"                             ║\n")
+			escreva("║                   ",valor_pis,"                              ║\n")
 			escreva("╚════════════════════════════════════════════════════════╝\n")
 		}
 		senao
@@ -867,18 +811,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_pis()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				inicio()
-			}	
+			tela_pis()
 		}	
 	}
 	
@@ -920,24 +857,16 @@ programa
 		adicional_noturno= m.arredondar(adicional_noturno, 2)
 		escreva("╔════════════════════════════════════════════════════════╗\n")
 		escreva("║            O VALOR DO SEU ADICIONAL NOTURNO É          ║\n")
-		escreva("║                          ",adicional_noturno+salario_oficial,"                       ║\n")
+		escreva("║                 ",adicional_noturno+salario_oficial,"                       ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
 		se(volta_ao_menu())
 		{
 			
-			tela_adicional_noturno()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_adicional_noturno()
 		}	
 	}
 	funcao real segunda_tela_add_noturno(real salario_p,real carga_horaria_p)
@@ -989,20 +918,11 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_periculosidade()
+			inicio()
 		}	
 		senao 
 		{
-			
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
+			tela_periculosidade()
 		}	
 	}
 	funcao real segunda_tela_periculosidade(real salario_p)
@@ -1025,12 +945,15 @@ programa
 				periculosidade=0
 			pare
 			caso contrario:
-			 escreva("║ POR FAVOR DIGITE UMA RESPOSTA CORRETA\n")
+				
+			 	escreva("║ POR FAVOR DIGITE UMA RESPOSTA CORRETA\n")
+			 	tela_detalhamento()
 			 
 			
 		}
 		retorne periculosidade
 	}
+	
 	// CALCULADOR HORA EXTRA
 	
 	funcao real calculador_de_hora_extra(real salario_p)
@@ -1130,20 +1053,12 @@ programa
 		se(volta_ao_menu())
 		{
 			
-			tela_hora_extra()
+			inicio()
 		}	
 		senao 
 		{
-			se(finalizar_programa())
-			{
-				 final()
-			}	
-			senao 
-			{
-				
-				inicio()
-			}	
-		}	
+			tela_hora_extra()
+		}		
 	}
 	funcao real segunda_tela_hora_extra(real salario_p,real carga_horaria_p)
 	{
@@ -1190,9 +1105,13 @@ programa
 		
 		faca{
 			
-			escreva("\nQuer repetir esse programa(s)SIM/(n)NÃO: \n")
-			leia(s_ou_n)
-			se(s_ou_n == 's' ou s_ou_n == 'n' )
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ ESCOLHA UMA DAS OPÇÕES ABAIXO                          ║\n")
+		escreva("╠════════════════════════════════════════════════════════╝\n")
+		escreva("║ 0- VOLTAR PRO MENU:\n")
+		escreva("║ 1- REPETIR O PROGRAMA:\n║ ")
+		leia(s_ou_n)
+			se(s_ou_n == '1' ou s_ou_n == '0' )
 			{
 				sair=falso
 			}
@@ -1201,7 +1120,7 @@ programa
 				sair=verdadeiro
 			}
 		}enquanto(sair)
-		se(s_ou_n=='s')
+		se(s_ou_n=='0')
 		{
 			retorne verdadeiro
 		}
@@ -1237,88 +1156,153 @@ programa
 			retorne falso
 		}
 	}
-	funcao concertar_programas()
-	{
-		
-	}
 	funcao banco_de_dados()
 	{
-		cadeia fazer_ou_nao_outro_cadastro
-		cadeia nome_completo, telefone, email, idade, cep, endereco_sem_cep, endereco
-		inteiro n = 1, numero_caracteres 
-		const cadeia NOME = "NOME COMPLETO: "
-		const cadeia TEL = "TELEFONE: "
-		const cadeia EMAIL = "EMAIL: "
-		const cadeia IDA = "IDADE: "
+		cadeia fazer_ou_nao_outro_cadastro 
+		cadeia nome_completo, telefone, email, idade, cep, endereco_sem_cep, endereco, trocar_caracteres, logradouro, complemento, bairro, localidade, uf
+		inteiro posicao_endereco, posicao_logradouro, posicao_complemento, posicao_bairro, posicao_localidade, posicao_uf
 
-		faca
-		{
-				escreva("Infome seu nome completo: ")
-				leia(nome_completo)
-				nome_completo = t.caixa_alta(nome_completo)
+
 		
-				escreva("Informe seu telefone: ")
-				leia(telefone)
-				telefone = t.caixa_alta(telefone)
+		escreva("║ Infome seu nome completo: ")
+		leia(nome_completo)
+		nome_completo = t.caixa_alta(nome_completo)
+
+		escreva("║ Informe seu telefone: ")
+		leia(telefone)
+		telefone = t.caixa_alta(telefone)
+
+		escreva("║ Informe seu email: ")
+		leia(email)
+		email = t.caixa_alta(email)
+
+		escreva("║ Informe sua idade: ")
+		leia(idade)
+		idade = t.caixa_alta(idade)
+
+		escreva("║ Informe seu CEP: ")
+		leia(cep)
 		
-				escreva("Informe seu email: ")
-				leia(email)
-				email = t.caixa_alta(email)
+
+		//FAZER A BUSCA DO CEP E SEPARAR
+		endereco = WS.obter_dados("https://viacep.com.br/ws/"+ cep + "/json/")
 		
-				escreva("Informe sua idade: ")
-				leia(idade)
-				idade = t.caixa_alta(idade)
+		posicao_endereco = t.posicao_texto("ibge",endereco, 0)-1
 		
-				escreva("Digite seu CEP: \n")
-				leia(cep)
-				escreva("---------------------\n")
-				
-				endereco = WS.obter_dados("https://viacep.com.br/ws/"+ cep + "/json/")
-				numero_caracteres = Texto.numero_caracteres(endereco)
-				
-				endereco_sem_cep = Texto.extrair_subtexto(endereco, 22, numero_caracteres)
+		endereco_sem_cep = t.extrair_subtexto(endereco, 0, posicao_endereco)
+	
+		endereco_sem_cep = t.substituir(endereco_sem_cep, "\"","\n")
+		endereco_sem_cep = t.substituir(endereco_sem_cep, ",","\n")
+		escreva(endereco_sem_cep)
+
+		//SUBSTITUIR TEXTO DO CEP
+		trocar_caracteres = t.substituir(endereco_sem_cep, "\"", "\n")
+
+		//POSICAO LOGRADOURO
+		posicao_logradouro = t.posicao_texto("complemento",endereco, 0)		
+		logradouro = t.substituir(endereco_sem_cep, "\"", "\n")
+		logradouro = t.substituir(endereco_sem_cep, ",","\n")
+		logradouro = t.extrair_subtexto(endereco_sem_cep, 25,posicao_logradouro)
+		logradouro = t.caixa_alta(logradouro)
+
+		//POSICAO COMPLEMENTO
+		posicao_complemento = t.posicao_texto("bairro",endereco, 0)		
+		complemento = t.substituir(endereco_sem_cep, "\"", "\n")
+		complemento = t.substituir(endereco_sem_cep, ",","\n")
+		complemento = t.extrair_subtexto(endereco_sem_cep, posicao_logradouro,posicao_complemento)
+		complemento = t.caixa_alta(complemento)
 		
-				endereco_sem_cep = Texto.substituir(endereco_sem_cep, ",","\n")
-				escreva(endereco_sem_cep)
-		
-				logico arquivo_existe = a.arquivo_existe("./banco de dados.txt")
-				se(arquivo_existe)
-				{
+		//POSICAO BAIRRO
+		posicao_bairro = t.posicao_texto("localidade",endereco, 0)		
+		bairro = t.substituir(endereco_sem_cep, "\"", "\n")
+		bairro = t.substituir(endereco_sem_cep, ",","\n")
+		bairro = t.extrair_subtexto(endereco_sem_cep, posicao_complemento,posicao_bairro)
+		bairro = t.caixa_alta(bairro)
+
+		//POSICAO LOCALIDADE 
+		posicao_localidade = t.posicao_texto("uf",endereco, 0)		
+		localidade = t.substituir(endereco_sem_cep, "\"", "\n")
+		localidade = t.substituir(endereco_sem_cep, ",","\n")
+		localidade = t.extrair_subtexto(endereco_sem_cep, posicao_bairro,posicao_localidade)
+		localidade = t.caixa_alta(localidade)
+
+		//POSICAO UF
+		posicao_uf = t.posicao_texto("ibge",endereco_sem_cep, 0)		
+		uf = t.substituir(endereco_sem_cep, "\"", "\n")
+		uf = t.substituir(endereco_sem_cep, ",","\n")
+		uf = t.extrair_subtexto(endereco_sem_cep, posicao_localidade,posicao_endereco)
+		uf = t.caixa_alta(uf)
 					
-					inteiro arquivo = a.abrir_arquivo("./banco de dados.txt", a.MODO_ACRESCENTAR)
-					a.escrever_linha("\n", arquivo)
-					a.escrever_linha("FUNCIONÁRIO "+  n + "\n", arquivo)
-					n++
-					a.escrever_linha("\n", arquivo)
-					a.escrever_linha(NOME+ nome_completo, arquivo)
-					a.escrever_linha(TEL+ telefone, arquivo)
-					a.escrever_linha(EMAIL+ email, arquivo)
-					a.escrever_linha(IDA+ idade, arquivo)
-		
-				a.fechar_arquivo(arquivo)
-				}
-				senao 
-				{
-					inteiro arquivo = a.abrir_arquivo("./banco de dados.txt", a.MODO_ESCRITA)
-					a.escrever_linha("\n", arquivo)
-					a.escrever_linha("FUNCIONÁRIO "+  n + "\n", arquivo)
-					n++
-					a.escrever_linha("\n", arquivo)
-					a.escrever_linha(NOME+ nome_completo, arquivo)
-					a.escrever_linha(TEL+ telefone, arquivo)
-					a.escrever_linha(EMAIL+ email, arquivo)
-					a.escrever_linha(IDA+ idade, arquivo)
-		
-				a.fechar_arquivo(arquivo)
-				}
-				
-				
-				escreva("DESEJA FAZER OUTRO CADASTRO") 
-				leia(fazer_ou_nao_outro_cadastro)
-				se(fazer_ou_nao_outro_cadastro=="n" ou fazer_ou_nao_outro_cadastro=="s")
-				{
-					fazer_ou_nao_outro_cadastro = t.caixa_alta(fazer_ou_nao_outro_cadastro)
-				}
-				}enquanto(fazer_ou_nao_outro_cadastro=="S")
+		logico arquivo_existe = a.arquivo_existe("/banco de dados.txt")
+		se(arquivo_existe)
+		{
+			
+			inteiro arquivo = a.abrir_arquivo("/banco de dados.txt", a.MODO_ACRESCENTAR)
+			a.escrever_linha("\n", arquivo)
+			
+			a.escrever_linha("\n", arquivo)
+			a.escrever_linha("NOME: "+ nome_completo, arquivo)
+			a.escrever_linha("TELEFONE: "+ telefone, arquivo)
+			a.escrever_linha("EMAIL: "+ email, arquivo)
+			a.escrever_linha("IDADE: "+ idade, arquivo)
+			a.escrever_linha("CEP: " +cep, arquivo)
+			a.escrever_linha(logradouro, arquivo)
+			a.escrever_linha(complemento, arquivo)
+			a.escrever_linha(bairro, arquivo)
+			a.escrever_linha(localidade, arquivo)
+			a.escrever_linha(uf, arquivo)
+			
+			
+
+		a.fechar_arquivo(arquivo)
+		}
+		senao 
+		{
+			inteiro arquivo = a.abrir_arquivo("/banco de dados.txt", a.MODO_ESCRITA)
+			a.escrever_linha("\n", arquivo)
+			
+			a.escrever_linha("\n", arquivo)
+			a.escrever_linha("NOME: "+ nome_completo, arquivo)
+			a.escrever_linha("TELEFONE: "+ telefone, arquivo)
+			a.escrever_linha("EMAIL: "+ email, arquivo)
+			a.escrever_linha("IDADE: "+ idade, arquivo)
+			a.escrever_linha("CEP: " +cep, arquivo)
+			a.escrever_linha(logradouro, arquivo)
+			a.escrever_linha(complemento, arquivo)
+			a.escrever_linha(bairro, arquivo)
+			a.escrever_linha(localidade, arquivo)
+			a.escrever_linha(uf, arquivo)
+			
+		a.fechar_arquivo(arquivo)
+		}
+		inicio()
+	}
+	funcao cadeia fazer_outro_cadastro()
+	{
+		escreva("╔════════════════════════════════════════════════════════╗\n")
+		escreva("║ ESCOLHA UMA DAS OPÇÕES ABAIXO                                             ║\n")
+		escreva("╠════════════════════════════════════════════════════════╝\n")
+		escreva("║ 0- FINALIZAR CADASTRO E IR PRO MENU:\n")
+		escreva("║ 1- REALIZAR CADASTRO:\n║ ")
+		cadeia deseja_ou_nao_realizar_outro_cadastro
+		caracter deseja_ou_nao_realizar_outro_cadastro_caracter
+		leia (deseja_ou_nao_realizar_outro_cadastro)
+		se(deseja_ou_nao_realizar_outro_cadastro=="n" ou deseja_ou_nao_realizar_outro_cadastro=="s")
+		{
+			deseja_ou_nao_realizar_outro_cadastro = t.caixa_alta(deseja_ou_nao_realizar_outro_cadastro)
+		}
+		deseja_ou_nao_realizar_outro_cadastro_caracter=ti.cadeia_para_caracter(deseja_ou_nao_realizar_outro_cadastro)
+		escolha(deseja_ou_nao_realizar_outro_cadastro_caracter)
+		{
+			caso '0':
+				inicio()
+			pare
+			caso '1':
+				banco_de_dados()
+			pare
+			caso contrario:
+				fazer_outro_cadastro()
+		}
+		retorne deseja_ou_nao_realizar_outro_cadastro
 	}
 }
