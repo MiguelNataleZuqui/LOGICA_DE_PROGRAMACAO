@@ -25,7 +25,7 @@ programa
 		escreva("║ PROGRAMA DE RECURSOS HUMANOS                           ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
 	}
-	 funcao menu()
+	funcao menu()
 	
 	{
 		escreva("\n\n")
@@ -34,20 +34,20 @@ programa
 		escreva("║ O PROGRAMA  REALIZARÁ  AS                              ║\n")
 		escreva("║ SEGUINTES FUNÇÕES                                      ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
-		escreva("║ 1- INSS                                                ║\n")
-		escreva("║ 2- IRPF                                                ║\n")
-		escreva("║ 2- Valor das Férias                                    ║\n")
-		escreva("║ 4- FGTS Mensal                                         ║\n")
-		escreva("║ 5- Depósito do FGTS                                    ║\n")
-		escreva("║ 6- Seguro Desemprego                                   ║\n")
-		escreva("║ 7- Vale Transporte                                     ║\n")
-		escreva("║ 8- PIS                                                 ║\n")
-		escreva("║ 9- ADICIONAL NOTURNO                                   ║\n")
+		escreva("║ 01- INSS                                               ║\n")
+		escreva("║ 02- IRPF                                               ║\n")
+		escreva("║ 03- Valor das Férias                                   ║\n")
+		escreva("║ 04- FGTS Mensal                                        ║\n")
+		escreva("║ 05- Depósito do FGTS                                   ║\n")
+		escreva("║ 06- Seguro Desemprego                                  ║\n")
+		escreva("║ 07- Vale Transporte                                    ║\n")
+		escreva("║ 08- PIS                                                ║\n")
+		escreva("║ 09- ADICIONAL NOTURNO                                  ║\n")
 		escreva("║ 10- PERICULOSIDADE                                     ║\n")
 		escreva("║ 11- HORA EXTRA                                         ║\n")
 		escreva("║ 12- SALÁRIO LÍQUIDO DO FINAL DO MÊS                    ║\n")
 		escreva("║ 13- OPÇÃO CADASTRO                                     ║\n")
-		escreva("║ 0- FINALIZAR PROGRAMA                                  ║\n")
+		escreva("║ 00- FINALIZAR PROGRAMA                                 ║\n")
 		escreva("╠════════════════════════════════════════════════════════╣\n")
 		escreva("║                 ESCOLHA UM NÚMERO ACIMA :              ║\n")
 		escreva("╚════════════════════════════════════════════════════════╝\n")
@@ -1275,12 +1275,14 @@ programa
 			
 		a.fechar_arquivo(arquivo)
 		}
-		inicio()
+		fazer_outro_cadastro()
 	}
 	funcao cadeia fazer_outro_cadastro()
 	{
+		limpa()
+		escreva("\n\n")
 		escreva("╔════════════════════════════════════════════════════════╗\n")
-		escreva("║ ESCOLHA UMA DAS OPÇÕES ABAIXO                                             ║\n")
+		escreva("║ ESCOLHA UMA DAS OPÇÕES ABAIXO                          ║\n")
 		escreva("╠════════════════════════════════════════════════════════╝\n")
 		escreva("║ 0- FINALIZAR CADASTRO E IR PRO MENU:\n")
 		escreva("║ 1- REALIZAR CADASTRO:\n║ ")
@@ -1295,6 +1297,10 @@ programa
 		escolha(deseja_ou_nao_realizar_outro_cadastro_caracter)
 		{
 			caso '0':
+				limpa()
+				escreva("╔════════════════════════════════════════════════════════╗\n")
+				escreva("║ CADASTRO FINALIZADO                                    ║\n")
+				escreva("╚════════════════════════════════════════════════════════╝\n")
 				inicio()
 			pare
 			caso '1':
