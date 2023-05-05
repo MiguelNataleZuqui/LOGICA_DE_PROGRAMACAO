@@ -9,7 +9,7 @@ programa
 		escreva("Digite seu  sobrenome: \n")
 		leia(sobrenome)
 		
-escreva(nome, sobrenome)
+		escreva(nome, sobrenome)
 	}
 }
 /* $$$ Portugol Studio $$$ 
